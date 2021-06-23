@@ -1,0 +1,184 @@
+﻿<br />
+<div style="width: 78%; margin: 0px auto; ">
+    <tr>
+
+        <td>
+            <button style="background-color: transparent;" onclick="voltar()" id="buttonFechar">X</button>
+        </td>
+    </tr>
+</div>
+
+<div style="width: 78%; margin: 0px auto; align-content: center; justify-content: center; left: 200px; top: 200px; position: relative;">
+    <tr>
+        <td>
+            <button onclick="pratos()" style="color: black" type="submit" id="btn" value=" ">
+                <div id="container2">
+                    <img id="image3" src="~/img_comida/pratos.png" width="80" height="50" />
+                    <p style=" left: 20px;" id="text2">Pratos</p>
+                </div>
+            </button>
+            &nbsp;&nbsp;&nbsp;
+            <button onclick="bebidas()" style="color: black" type="submit" id="btn" value=" ">
+                <div id="container2">
+                    <img style="left: 10px" id="image2" src="~/img_comida/bebidas.png" width="80" height="50" />
+                    <p style=" left: 25px;" id="text2">Bebidas</p>
+                </div>
+            </button>
+            &nbsp;&nbsp;&nbsp;
+            <button onclick="frutas()" style="color: black" type="submit" id="btn" value=" ">
+                <div id="container2">
+                    <img id="image3" src="~/img_comida/frutas.png" width="80" height="50" />
+                    <p style=" left: 25px;" id="text2">Frutas</p>
+                </div>
+            </button>
+            &nbsp;&nbsp;&nbsp;
+            <button onclick="outras()" style="color: black" type="submit" id="btn" value=" ">
+                <div id="container2">
+                    <img style="left: 10px" id="image2" src="~/img_comida/outras.png" width="80" height="50" />
+                    <p style=" left: 20px;" id="text2">Outras</p>
+                </div>
+            </button>
+        </td>
+    </tr>
+</div>
+
+
+<script>
+    function voltar() {
+        var url = '@Url.Action("ViewPrincipal", "easytofind")';
+        window.location.href = url;
+    }
+
+    function pratos() {
+        var url = '@Url.Action("pratos", "comida")';
+        window.location.href = url;
+    }
+
+    function frutas() {
+        var url = '@Url.Action("frutas", "comida")';
+        window.location.href = url;
+    }
+
+    function bebidas() {
+        var url = '@Url.Action("bebidas", "comida")';
+        window.location.href = url;
+    }
+
+    function outras() {
+        var url = '@Url.Action("outras", "comida")';
+        window.location.href = url;
+    }
+</script>
+
+
+<style>
+    #text {
+        z-index: 100;
+        position: absolute;
+        color: black;
+        font-size: 14px;
+        font-weight: bold;
+        align-content: center;
+        justify-content: center;
+        left: 30px;
+        top: 60px;
+    }
+
+    #text2 {
+        z-index: 100;
+        position: absolute;
+        color: black;
+        font-size: 14px;
+        font-weight: bold;
+        align-content: center;
+        justify-content: center;
+        top: 45px;
+    }
+
+    #textPequisar {
+        z-index: 100;
+        position: absolute;
+        color: black;
+        font-size: 14px;
+        font-weight: bold;
+        align-content: center;
+        justify-content: center;
+        left: 25px;
+        top: 60px;
+    }
+
+    #container {
+        height: 80px;
+        width: 110px;
+        position: relative;
+        background-color: white;
+    }
+
+    #image {
+        position: absolute;
+        left: 10px;
+        top: 0px;
+    }
+
+    #image2 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+
+    #image3 {
+        position: absolute;
+        left: 5px;
+        top: 0px;
+    }
+
+    #btn {
+        padding: 1px 1px 1px 1px;
+        width: 100px;
+        height: 70px;
+        color: black;
+        outline: 1px;
+        vertical-align: middle;
+        background-color: white;
+    }
+
+    #label1 {
+        padding: 1px 1px 1px 1px;
+        height: 85px;
+        width: 400px;
+        vertical-align: middle;
+    }
+
+    #btn1 {
+        padding: 1px 1px 1px 1px;
+        width: 115px;
+        height: 85px;
+        color: white;
+        outline: 1px;
+        vertical-align: middle;
+    }
+
+    #container2 {
+        height: 65px;
+        width: 95px;
+        position: relative;
+        background-color: white;
+    }
+
+    #buttonFechar {
+        float: right;
+        padding: 0px 20px;
+        vertical-align: inherit;
+        background: white;
+        color: black;
+        font-size: 45px;
+        font-family: helvetica, serif;
+        text-decoration: none;
+        border: none;
+        min-inline-size: max-content;
+        width: 70px;
+        top: 50%;
+        left: 50%;
+        outline: none;
+    }
+</style>

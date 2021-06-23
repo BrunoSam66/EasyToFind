@@ -1,0 +1,280 @@
+﻿@{
+    @using Microsoft.AspNetCore.Http
+    ViewData["Title"] = "ViewPrincipal";
+
+    var path = null as string;
+    var frase = null as string;
+}
+@model IEnumerable<EasyToFind.Models.Guardar>
+
+<br />
+<tr>
+    <td>
+        <button style="background-color: transparent;" onclick="voltar()" id="buttonFechar">X</button>
+    </td>
+</tr>
+
+<br />
+<br />
+<div style="width: 60%; margin: 0px auto; ">
+    <tr>
+        <td>
+            <form style="display: inline;" asp-controller="easytofind" asp-action="Falar" method="post" enctype="multipart/form-data">
+                @{
+                    path = Context.Request.Path;
+                }
+                <input type="hidden" name="pathUrl" value="@path" />
+                <button style="color: black" type="submit" id="btn1" width="110" height="80">
+                    <div id="container">
+                        <img id="image" src="~/Imagens/falar.png" width="90" height="60" />
+                        <p id="textFalar">
+                            &nbsp; Falar
+                        </p>
+                    </div>
+                </button>
+            </form>
+        </td>
+
+        &nbsp;
+
+        <td>
+            <input disabled="disabled" type="text" id="label1" value="@Context.Session.GetString("texto")" />
+        </td>
+
+        &nbsp;
+
+        <td>
+            <form style="display: inline;" asp-controller="easytofind" asp-action="Guardar" method="post" enctype="multipart/form-data">
+                @{
+                    path = Context.Request.Path;
+                }
+                <input type="hidden" name="pathUrl" value="@path" />
+                <button style="color: black" type="submit" id="btn1" width="110" height="80">
+                    <div id="container">
+                        <img id="image" src="~/Imagens_Baixo/nuvem.png" width="90" height="60" />
+                        <p id="textGuardar">
+                            Guardar frase
+                        </p>
+                    </div>
+                </button>
+            </form>
+        </td>
+
+    </tr>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <div style=" margin: 0px auto; width: 100%;">
+
+        @foreach (var item in Model)
+        {
+            <label style="color: black; display: inline-block">@Convert.ToString(item.Texto)</label>
+            <div style=" display: inline-block;vertical-align: middle; position: sticky; left: 900px;">
+                <form style="display: inline;" target="_blank" asp-controller="easytofind" asp-action="UtilizarFrase" method="post" enctype="multipart/form-data">
+                    @{
+                        frase = item.Texto;
+                    }
+                    <input type="hidden" name="frase" value="@frase" />
+                    <button style="color: black" type="submit" id="btn2" width="90" height="60">
+                        <div id="container2">
+                            <img id="image2" src="~/guardar/usar.png" width="50" height="50" />
+                            <p style="left: 25px;" id="textFrases">
+                                Utilizar
+                            </p>
+                        </div>
+                    </button>
+                </form>
+
+                <form style="display: inline;" target="_blank" asp-controller="easytofind" asp-action="EliminarFrase" method="post" enctype="multipart/form-data">
+                    @{
+                        path = Context.Request.Path;
+                    }
+                    <input type="hidden" name="pathUrl" value="@path" />
+                    @{
+                        frase = item.Texto;
+                    }
+                    <input type="hidden" name="frase" value="@frase" />
+                    <button style="color: black" type="submit" id="btn2" width="90" height="60">
+                        <div id="container2">
+                            <img id="image2" src="~/Imagens_Baixo/lixo.png" width="48" height="48" />
+                            <p style="left: 20px;" id="textFrases">
+                                Eliminar
+                            </p>
+                        </div>
+                    </button>
+                </form>
+            </div>
+
+            <br />
+            <br />
+        }
+
+    </div>
+
+    <script>
+        function voltar() {
+            var url = '@Url.Action("ViewPrincipal", "easytofind")';
+            window.location.href = url;
+        }
+    </script>
+
+    <style>
+        #textFalar {
+            z-index: 100;
+            position: absolute;
+            color: black;
+            font-weight: bold;
+            align-content: center;
+            justify-content: center;
+            left: 30px;
+            top: 60px;
+        }
+
+        #text {
+            z-index: 100;
+            position: absolute;
+            color: black;
+            font-weight: bold;
+            align-content: center;
+            justify-content: center;
+            left: 30px;
+            top: 30px;
+        }
+
+        #text2 {
+            z-index: 100;
+            position: absolute;
+            color: black;
+            font-size: 14px;
+            font-weight: bold;
+            align-content: center;
+            justify-content: center;
+            top: 45px;
+        }
+
+        #text3 {
+            z-index: 100;
+            position: absolute;
+            color: black;
+            font-size: 13px;
+            font-weight: bold;
+            align-content: center;
+            justify-content: center;
+            top: 45px;
+        }
+
+        #textGuardar {
+            z-index: 100;
+            position: absolute;
+            color: black;
+            font-size: 14px;
+            font-weight: bold;
+            align-content: center;
+            justify-content: center;
+            left: 15px;
+            top: 60px;
+        }
+
+        #container {
+            height: 80px;
+            width: 110px;
+            position: relative;
+            background-color: white;
+        }
+
+        #container2 {
+            height: 60px;
+            width: 90px;
+            position: relative;
+            background-color: white;
+        }
+
+        #container3 {
+            position: absolute;
+            left: 800px;
+            display: inline;
+            background-color: white;
+        }
+
+        #image {
+            position: absolute;
+            left: 10px;
+            top: 0px;
+        }
+
+        #image2 {
+            position: absolute;
+            left: 17px;
+            top: 0px;
+        }
+
+        #btn {
+            padding: 1px 1px 1px 1px;
+            width: 100px;
+            height: 70px;
+            color: black;
+            outline: 1px;
+            vertical-align: middle;
+            background-color: white;
+        }
+
+        #label1 {
+            padding: 1px 1px 1px 1px;
+            height: 85px;
+            width: 400px;
+            vertical-align: middle;
+        }
+
+        #btn1 {
+            padding: 1px 1px 1px 1px;
+            width: 115px;
+            height: 85px;
+            color: white;
+            outline: 1px;
+            vertical-align: middle;
+        }
+
+        #btn2 {
+            padding: 1px 1px 1px 1px;
+            width: 95px;
+            height: 65px;
+            color: white;
+            outline: 1px;
+            vertical-align: middle;
+        }
+
+        #textFrases {
+            z-index: 100;
+            position: absolute;
+            color: black;
+            font-size: 12px;
+            font-weight: bold;
+            align-content: center;
+            justify-content: center;
+            top: 45px;
+        }
+
+        #buttonFechar {
+            float: right;
+            padding: 0px 20px;
+            vertical-align: inherit;
+            background: white;
+            color: black;
+            font-size: 45px;
+            font-family: helvetica, serif;
+            text-decoration: none;
+            border: none;
+            min-inline-size: max-content;
+            width: 70px;
+            top: 50%;
+            left: 50%;
+            outline: none;
+        }
+
+        input[type="text"]:disabled {
+            background-color: white;
+            border-color: black;
+        }
+    </style>

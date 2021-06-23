@@ -1,0 +1,268 @@
+﻿@{
+    @using Microsoft.AspNetCore.Http
+
+    ViewData["Title"] = "ViewPrincipal";
+
+    int contador = 0;
+    var path = null as string;
+}
+
+@model IEnumerable<EasyToFind.Models.ModelBotoes>
+
+<br />
+<br />
+<div style="width: 60%; margin: 0px auto; ">
+    <tr>
+        <td>
+            <form style="display: inline;" asp-controller="easytofind" asp-action="Falar" method="post" enctype="multipart/form-data">
+                @{
+                    path = Context.Request.Path;
+                }
+                <input type="hidden" name="pathUrl" value="@path" />
+                <button style="color: black" type="submit" id="btn1" width="110" height="80">
+                    <div id="container">
+                        <img id="image" src="~/Imagens/falar.png" width="90" height="60" />
+                        <p id="text">
+                            &nbsp; Falar
+                        </p>
+                    </div>
+                </button>
+            </form>
+        </td>
+
+        &nbsp;
+
+        <td>
+            <input disabled="disabled" type="text" id="label1" value="@Context.Session.GetString("texto")" />
+        </td>
+
+        &nbsp;
+
+        <td>
+            <form style="display: inline;" target="_blank" asp-controller="easytofind" asp-action="Pesquisar" method="post" enctype="multipart/form-data">
+                <button style="color: black" type="submit" id="btn1" width="110" height="80">
+                    <div id="container">
+                        <img id="image" src="~/Imagens/pesquisar.png" width="90" height="60" />
+                        <p id="textPequisar">
+                            Pesquisar
+                        </p>
+                    </div>
+                </button>
+            </form>
+        </td>
+
+    </tr>
+
+    <br />
+    <br />
+    <div style=" margin: 0px auto; width: 75%;">
+
+
+        @foreach (var item in Model)
+        {
+            if (contador % 4 == 0)
+            {
+                <br />
+            }
+
+            <form style="display: inline;" asp-controller="easytofind" asp-action="ViewPrincipal" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="botao" value="@item.Descricao" />
+                @{
+                    path = Context.Request.Path.ToString();
+                }
+                <input type="hidden" name="pathUrl" value="@path" />
+                <button style="color: black" type="submit" id="btn1" width="110" height="80">
+                    <div id="container">
+                        <img id="image" src="~/img_comida/Bebidas/@item.NomeImagem" width="90" height="60" />
+                        <p id="text">
+                            @item.Descricao
+                        </p>
+                    </div>
+                </button>
+
+            </form>
+
+
+            contador++;
+        }
+    </div>
+
+    <br />
+    <br />
+
+    <div style="width: 78%; margin: 0px auto; ">
+        <tr>
+            <td>
+                <button style="color: black" onclick="VoltarAtras()" type="submit" id="btn" value=" ">
+                    <div id="container2">
+                        <img id="image3" src="~/Imagens_Baixo/retroceder.png" width="80" height="50" />
+                        <p style=" left: 10px;" id="text2">Retroceder</p>
+                    </div>
+                </button>
+            </td>
+
+            <td>
+                <form style="display: inline;" asp-controller="easytofind" asp-action="Apagar" method="post" enctype="multipart/form-data">
+                    @{
+                        path = Context.Request.Path.ToString();
+                    }
+                    <input type="hidden" name="pathUrl" value="@path" />
+                    <button style="color: black" type="submit" id="btn" value=" ">
+                        <div id="container2">
+                            <img id="image3" src="~/Imagens_Baixo/lixo.png" width="80" height="50" />
+                            <p style=" left: 20px;" id="text2">Apagar</p>
+                        </div>
+                    </button>
+                </form>
+            </td>
+
+            <td>
+                <form style="display: inline;" asp-controller="easytofind" asp-action="Errei" method="post" enctype="multipart/form-data">
+                    @{
+                        path = Context.Request.Path.ToString();
+                    }
+                    <input type="hidden" name="pathUrl" value="@path" />
+                    <button style="color: black" type="submit" id="btn" value=" ">
+                        <div id="container2">
+                            <img id="image2" src="~/Imagens_Baixo/erro.png" width="90" height="55" />
+                            <p style=" left: 25px;" id="text2">Errei!</p>
+                        </div>
+                    </button>
+                </form>
+            </td>
+
+            <td>
+                <button style="color: black" type="submit" id="btn" value=" ">
+                    <div id="container2">
+                        <img id="image3" src="~/Imagens_Baixo/alerta.png" width="80" height="50" />
+                        <p style=" left: 25px;" id="text2">Ajuda</p>
+                    </div>
+                </button>
+
+            </td>
+            <td>
+                <form style="display: inline;" asp-controller="easytofind" asp-action="Guardar" method="get" enctype="multipart/form-data">
+                    <button style="color: black" type="submit" id="btn" value=" ">
+                        <div id="container2">
+                            <img id="image2" src="~/Imagens_Baixo/nuvem.png" width="90" height="50" />
+                            <p style=" left: 20px;" id="text2">Guardar</p>
+                        </div>
+                    </button>
+                </form>
+            </td>
+
+        </tr>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function VoltarAtras() {
+        var url = '@Url.Action("ViewPrincipal", "easytofind")';
+        window.location.href = url;
+    }
+
+
+</script>
+
+<style>
+    #text {
+        z-index: 100;
+        position: absolute;
+        color: black;
+        font-size: 14px;
+        font-weight: bold;
+        align-content: center;
+        justify-content: center;
+        left: 30px;
+        top: 60px;
+    }
+
+    #text2 {
+        z-index: 100;
+        position: absolute;
+        color: black;
+        font-size: 14px;
+        font-weight: bold;
+        align-content: center;
+        justify-content: center;
+        top: 45px;
+    }
+
+    #textPequisar {
+        z-index: 100;
+        position: absolute;
+        color: black;
+        font-size: 14px;
+        font-weight: bold;
+        align-content: center;
+        justify-content: center;
+        left: 25px;
+        top: 60px;
+    }
+
+    #container {
+        height: 80px;
+        width: 110px;
+        position: relative;
+        background-color: white;
+    }
+
+    #image {
+        position: absolute;
+        left: 10px;
+        top: 0px;
+    }
+
+    #image2 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+
+    #image3 {
+        position: absolute;
+        left: 5px;
+        top: 0px;
+    }
+
+    #btn {
+        padding: 1px 1px 1px 1px;
+        width: 100px;
+        height: 70px;
+        color: black;
+        outline: 1px;
+        vertical-align: middle;
+        background-color: white;
+    }
+
+    #label1 {
+        padding: 1px 1px 1px 1px;
+        height: 85px;
+        width: 400px;
+        vertical-align: middle;
+    }
+
+    #btn1 {
+        padding: 1px 1px 1px 1px;
+        width: 115px;
+        height: 85px;
+        color: white;
+        outline: 1px;
+        vertical-align: middle;
+    }
+
+    #container2 {
+        height: 65px;
+        width: 95px;
+        position: relative;
+        background-color: white;
+    }
+
+    input[type="text"]:disabled {
+        background-color: white;
+        border-color: black;
+    }
+</style>
+

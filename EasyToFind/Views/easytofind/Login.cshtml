@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    var path = null as string;
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="text-center">
+    <br />
+
+    <div>
+        <img id="logoId" src="~/img/logo.png" alt="Sample Photo" />
+
+
+    </div>
+    <br /><br />
+    <input type="hidden" id="email" />
+          <div>
+
+              <button id="buttonId">Login com o Google</button>
+
+
+              <p style="color: black"> Possui conta Google?  <a target="_blank" href="https://accounts.google.com/signup/v2/webcreateaccount?continue=https%3A%2F%2Faccounts.google.com%2FManageAccount%3Fnc%3D1&hl=pt-br&flowName=GlifWebSignIn&flowEntry=SignUp">Registe-se.</a></p>
+
+              <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+              <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+
+              <!-- https://firebase.google.com/docs/web/setup#available-libraries--->
+
+              <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+              <script type="text/javascript">
+
+                  $("#buttonId").click(function () {
+                  // Your web app's Firebase configuration
+                  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+                  var firebaseConfig = {
+                      apiKey: "AIzaSyDBE7izBIiJn7j7mT490ys7N4wPu6H96Ak",
+                      authDomain: "easytofind-b0a20.firebaseapp.com",
+                      projectId: "easytofind-b0a20",
+                      storageBucket: "easytofind-b0a20.appspot.com",
+                      messagingSenderId: "511563859537",
+                      appId: "1:511563859537:web:bb02b7a56288161515da70",
+                      measurementId: "G-YYV4Z7ER77"
+                  };
+                  // Initialize Firebase
+                  firebase.initializeApp(firebaseConfig);
+                  var provider = new firebase.auth.GoogleAuthProvider();
+                  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+                      firebase.auth().signInWithPopup(provider).then(function (result) {
+
+                          var token = result.credential.accessToken;
+                          var user = result.user;
+                          firebase.auth()
+                              .currentUser
+                              .getIdToken()
+                              .then((idToken) => {
+                                  console.log(idToken);
+
+                                  var email = firebase.auth().currentUser.email;
+                                  $("#email").val(email);
+                                  console.log(email);
+
+                                  if (email != null) {
+
+                                      window.location.href = 'ViewPrincipal?email=' + $("#email").val();
+                                  }
+                                  else {
+                                      window.location.href = 'Login';
+                                  }
+
+                              }).catch(function (error) {
+                                  console.log(error);
+                              });
+                          
+                      }).catch(function (error) {
+                          console.log(error);
+                      });
+                  });
+              </script>
+
+          </div>
+</div>
+
+<style>
+    #logoId {
+        height: 300px;
+        width: 290px;
+    }
+
+    #buttonId {
+        border: 2px solid #a1a1a1;
+        padding: 5px 200px;
+        color: #fff;
+        background: #00f;
+        min-inline-size: max-content;
+        width: 70px;
+        border-radius: 25px;
+        top: 50%;
+        left: 50%;
+        -moz-border-radius: 35px; /* Firefox 3.6 and earlier */
+    }
+</style>
